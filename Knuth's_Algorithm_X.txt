@@ -1,0 +1,16 @@
+Algorithm X is a recursive, nondeterministic, depth-first, backtracking algorithm that finds all solutions to the exact cover problem.
+
+The exact cover problem is represented in Algorithm X by a matrix A consisting of 0s and 1s. The goal is to select a subset of the rows such that the digit 1 appears in each column exactly once.
+
+Algorithm X functions as follows:
+	1. If the matrix has no columns then terminate successfully  
+	2. Choose a column 'c'
+	3. Choose a row 'r' search that Arc = 1
+	4. In that row for all column 'j' which have Arj = 1, select those columns 
+	5. Now for each column in this group of selected columns,select all rows 'i' having Aij = 1, for each column selected in step 4.
+	6. Delete all the group of selected columns in step 4 and selected rows in Step 5.
+	7. Now repeat this steps from 1 to 6 until all the columns are deleted completely 
+
+In this recursion at last when all the columns of the matrix is deleted then the rows selected at Step 3 when kept in order forms the cover(i.e. our final solution)
+
+Any systematic rule for choosing column c in this procedure will find all solutions, but some rules work much better than others. To reduce the number of iterations, Knuth suggested that in the column-choosing algorithm select a column with the smallest number of 1s in it.

@@ -1,0 +1,17 @@
+Dancing links is a technique for reverting the operation of deleting a node from a circular doubly linked list. It is particularly useful for efficiently implementing backtracking algorithms, such as Donald Knuth's Algorithm X for the exact cover problem. 
+
+Algorithm X is a recursive, nondeterministic, depth-first, backtracking algorithm that finds all solutions to the exact cover problem. Some of the better-known exact cover problems include tiling, the n queens problem, and Sudoku.
+
+(In mathematics, given a collection S of subsets of a set X, an exact cover is a subcollection of S* of S such that each element in X is contained in exactly one subset in S*. One says that each element in X is covered by exactly one subset in S*. An exact cover is a kind of cover.)
+
+Knuth observed that a naive implementation of his Algorithm X would spend an inordinate amount of time searching for 1's. When selecting a column, the entire matrix had to be searched for 1's. When selecting a row, an entire column had to be searched for 1's. After selecting a row, that row and a number of columns had to be searched for 1's(for reference read Knuths_Algorithm_X.txt). To improve this search time from complexity O(n) to O(1), Knuth implemented a sparse matrix where only 1's are stored.
+
+At all times, each node in the matrix will point to the adjacent nodes to the left and right (1's in the same row), above and below (1's in the same column), and the header for its column (described below). Each row and column in the matrix will consist of a circular doubly-linked list of nodes.
+
+Each column will have a special node known as the "column header," which will be included in the column list, and will form a special row ("control row") consisting of all the columns which still exist in the matrix.
+
+Finally, each column header may optionally track the number of nodes in its column, so that locating a column with the lowest number of nodes is of complexity O(n) rather than O(n×m) where n is the number of columns and m is the number of rows.
+
+An exact cover problem, for our purposes, is as follows: given a matrix of ones and zeros, select a subset S of the rows so that each column has exactly one 1 when looking at just the rows S.
+
+What’s important for us, is that a Sudoku puzzle can be trivially represented as an exact cover problem. Not only that, but many other problems, when suitably expressed as an exact cover problem (for example N-queens), can also be solved using Algorithm X. We just need to write Algorithm X once, and then for any problem in which we are interested in and which can be formulate as an exact cover problem, we just need to implement the translation.
