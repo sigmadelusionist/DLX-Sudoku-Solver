@@ -20,16 +20,16 @@ signed main(){
 		cout<<"Validating Sudoku...\n\n";
 		if(game.validate()){
 			cout<<"Validated Succesfully..\n\n";
+			clock_t start_t = clock();
 			game.solve();
+			clock_t end_t = clock();
+			cout<<'\n'<<"Hurray!!\nSolved in: "<<(double) (end_t - start_t) / CLOCKS_PER_SEC<<'\n'<<" sec\n";
 		}else 
 			cout<<"Invalid Sudoku...\n\n";
 	}
 
-	cout<<"\nPress a number to exit..";
+	cout<<"\nPress a number to exit..\n";
 	game.intIp();
 
 	return 0;
 }
-
-//g++ Sudoku.cpp DancingLinks.cpp Node.cpp SudokuSolver.cpp
-//cd cpp files\projects\sudoku
