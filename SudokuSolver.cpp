@@ -1,7 +1,25 @@
 #include "SudokuSolver.h"
 
 Solver::Solver(){
+	bmk=false;//by default not benchmarking
+}
 
+void Solver::ask(){
+	char a;
+	std::cout<<"Are you benchmarking??(Y/N): ";
+	reask:
+	std::cin>>a;
+	if(a=='Y'){
+		std::cout<<"How many Sudoku??:";
+		n=intIp();
+		bmk=true;
+		time = 0.0;
+	}else if(a=='N'){
+		n=1;
+	}else{
+		std::cout<<"Y/N: ";
+		goto reask;
+	}
 }
 
 void Solver::welcome(){
@@ -66,12 +84,15 @@ bool Solver::checkSize(int a){
 }
 
 bool Solver::takeInput(){
-    printf("Please give the size of your Sudoku(a perfect square): ");
-	size=intIp();
-	while(size<0 || !checkSize(size)){
-		printf("Invalid input!\nSize should be a perfect square.\n\nPlease try again.: ");
+	if(!bmk){
+	    printf("Please give the size of your Sudoku(a perfect square): ");
 		size=intIp();
+		while(size<0 || !checkSize(size)){
+			printf("Invalid input!\nSize should be a perfect square.\n\nPlease try again.: ");
+			size=intIp();
+		}
 	}
+	else size=9;//bechmarking 9x9 Sudoku
 
 	int s=size;
 
@@ -84,16 +105,24 @@ bool Solver::takeInput(){
 			dlx.cover[i][j]=0;
 	}
 	
-	std::cout<<"\nStart giving entries line by line..\n";
+	if(!bmk)std::cout<<"\nStart giving entries line by line..\n";
+	std::string sudoku_line;
+	if(bmk)
+		std::cin>>sudoku_line;
     for(int i=0;i<s;i++){
     	sudoku[i]=new int [s];
         for(int j=0;j<s;j++){
-            sudoku[i][j]=intIp();
-            if(sudoku[i][j]<0 || sudoku[i][j]>s){
-                std::cout<<"Invalid entry at ("<<i<<','<<j<<") "<<sudoku[i][j]<<" is not in range 0 to "<<s<<"\n\n";
-                std::cout<<"Application terminated...\n\n";
-                return false;
-            }
+            if(!bmk){
+            	sudoku[i][j]=intIp();
+	            if(sudoku[i][j]<0 || sudoku[i][j]>s){
+	                std::cout<<"Invalid entry at ("<<i<<','<<j<<") "<<sudoku[i][j]<<" is not in range 0 to "<<s<<"\n\n";
+	                std::cout<<"Application terminated...\n\n";
+	                return false;
+	            }
+	        }
+	        else{
+	        	sudoku[i][j]=(sudoku_line[i*s+j]=='.')?0:sudoku_line[i*s+j]-'0';
+	        }
         }
     }
     std::cout<<'\n';
@@ -322,4 +351,8 @@ void Solver::print(){
 		}
 		std::cout<<'\n';
 	}
+}
+
+void Solver::reset(){
+	dlx.isSolved=false;
 }
