@@ -4,7 +4,7 @@
  * Benchmarked the solver for 9x9 sudoku against 4 difficulty std's by 4000+ boards to solve on average under 1 ms (max 7ms for any std of difficulty)
 
  * (in msec)
- *   	 Simple  	Easy  	Intermediate  	Expert
+ * Std Simple  	Easy  	Intermediate  	Expert
  * Max	 4.00	   4.00	     7.00	        4.00
  * Avg	 0.85	   1.19	     1.11	        0.87
 
