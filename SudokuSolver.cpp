@@ -175,14 +175,23 @@ bool Solver::validate(){
 }
 
 void Solver::solve(){
+
+	clock_t start_t = clock();
+
 	BuildMatrix();
 	BuildCover();
 	TransformToCurrentGrid();
 
+	
 	dlx.search(0,sudoku);
+	clock_t end_t = clock();
 
-	if(!dlx.isSolved)
+	time = (double)(end_t - start_t) / CLOCKS_PER_SEC;
+
+	if(!dlx.isSolved){
 		std::cout<<"No Solution!"<<'\n';
+		time=0.0;
+	}
 	else print();
 }
 
