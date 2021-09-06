@@ -3,6 +3,7 @@
 #include <ctime>
 #include <cmath>
 #include <limits>
+#include <iomanip>
 #include <string>
 #include "DancingLinks.h"
 
